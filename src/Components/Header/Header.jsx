@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
+import Container from "../Container/Container";
 
 const Header = () => {
   const navigation = [
@@ -31,53 +32,67 @@ const Header = () => {
   ];
 
   return (
-    <header className="navbar bg-base-100 shadow-sm">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+    <header>
+      <Container className="navbar py-6 px-0">
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost pl-0 lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {" "}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />{" "}
+              </svg>
+            </div>
+            <ul
+              tabIndex="-1"
+              className="menu menu-sm dropdown-content gap-5 bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
+              {navigation.map((item) => (
+                <li key={item.id}>
+                  <NavLink
+                    to={item.path}
+                    className="p-0 font-semibold text-primary transition-colors duration-200 ease-linear hover:bg-transparent hover:text-accent"
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
+          <Link to={"/"}>
+            Smart<span>Deals</span>
+          </Link>
+        </div>
+
+        <div className="navbar-center hidden lg:flex">
+          <ul className="menu menu-horizontal px-1 gap-10">
             {navigation.map((item) => (
-            <li key={item.id}>
-              <Link to={item.path}>{item.name}</Link>
-            </li>
-          ))}
+              <li key={item.id}>
+                <NavLink
+                  to={item.path}
+                  className="p-0 font-semibold text-primary transition-colors duration-200 ease-linear hover:bg-transparent hover:text-accent"
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Smart <span>Deals</span></a>
-      </div>
 
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {navigation.map((item) => (
-            <li key={item.id}>
-              <Link to={item.path}>{item.name}</Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="navbar-end">
-        <a className="btn">Button</a>
-      </div>
+        <div className="navbar-end">
+          <img src="../../../public/react.svg" alt="It is loggedin user image" className="size-8 md:size-9 lg:size-11 p-1 ring-1 ring-accent rounded-full"/>
+        </div>
+      </Container>
     </header>
   );
 };

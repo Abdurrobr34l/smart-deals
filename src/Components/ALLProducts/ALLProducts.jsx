@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
+import Container from "../Container/Container";
 
 const ALLProducts = () => {
   return (
-    <div>
-      ALLProducts
-    </div>
+    <section>
+      <Container>
+        ALLProducts
+      </Container>
+    </section>
   );
 };
 

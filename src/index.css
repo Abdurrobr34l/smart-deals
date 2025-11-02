@@ -8,3 +8,7 @@
   --color-secondary: teal;
   /* --bg-base-content: #030712; */
 }
+
+.active {
+  @apply text-accent border-b-2 rounded-none;
+}
