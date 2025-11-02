@@ -1,6 +1,4 @@
-:root {
-  --gradAccentClr: linear-gradient(90deg, #632EE3, #9F62F2);
-}
+
 
 @import "tailwindcss";
 @plugin "daisyui" {
@@ -26,4 +24,16 @@ h1, h2, h3, h4 {
 }
 p {
   @apply text-secondary;
+}
+
+.link-hover {
+  @apply font-semibold transition-colors duration-200 ease-linear hover:text-accent;
+}
+
+.gradAccentClr {
+  @apply transition-colors duration-700 ease-linear bg-linear-to-tr from-[#632EE3] to-[#9F62F2];
+}
+
+.gradAccentClrHover:hover {
+  @apply bg-linear-to-r from-[#9F62F2] to-[#632EE3];/* hover gradient */
 }
