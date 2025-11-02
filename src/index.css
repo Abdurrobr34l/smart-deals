@@ -12,9 +12,10 @@
   default: true;
   --color-primary: #001931;
   --color-secondary: #627382;
-  --color-accent: #9F62F2
-  /* --bg-base-content: #030712; */
+  --color-accent: #9F62F2;
+  --color-base-100: #f5f5f5;
 }
+
 
 .active {
   @apply text-accent border-b-2 rounded-none;

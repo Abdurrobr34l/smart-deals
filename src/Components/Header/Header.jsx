@@ -32,7 +32,7 @@ const Header = () => {
   ];
 
   return (
-    <header>
+    <header className="bg-white">
       <Container className="navbar py-6 px-0">
         {/* Dropdown Menu & Logo */}
         <div className="navbar-start">
@@ -60,7 +60,7 @@ const Header = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content gap-5 bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content gap-5 bg-white rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {navigation.map((item) => (
                 <li key={item.id}>
