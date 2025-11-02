@@ -1,14 +1,28 @@
+:root {
+  --gradAccentClr: linear-gradient(90deg, #632EE3, #9F62F2);
+}
+
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default;
+}
 
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: blue;
-  --color-secondary: teal;
+  --color-primary: #001931;
+  --color-secondary: #627382;
+  --color-accent: #9F62F2
   /* --bg-base-content: #030712; */
 }
 
 .active {
   @apply text-accent border-b-2 rounded-none;
+}
+
+h1, h2, h3, h4 {
+  @apply text-primary;
+}
+p {
+  @apply text-secondary;
 }

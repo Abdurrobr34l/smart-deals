@@ -34,9 +34,14 @@ const Header = () => {
   return (
     <header>
       <Container className="navbar py-6 px-0">
+        {/* Dropdown Menu & Logo */}
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost pl-0 lg:hidden">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost pl-0 lg:hidden"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -69,11 +74,12 @@ const Header = () => {
               ))}
             </ul>
           </div>
-          <Link to={"/"}>
-            Smart<span>Deals</span>
+          <Link to={"/"} className="text-3xl font-bold">
+            Smart<span className="text-accent">Deals</span>
           </Link>
         </div>
 
+        {/* Navigation Menus */}
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-10">
             {navigation.map((item) => (
@@ -89,8 +95,13 @@ const Header = () => {
           </ul>
         </div>
 
+        {/* LoggedIn User Profile */}
         <div className="navbar-end">
-          <img src="../../../public/react.svg" alt="It is loggedin user image" className="size-8 md:size-9 lg:size-11 p-1 ring-1 ring-accent rounded-full"/>
+          <img
+            src="../../../public/react.svg"
+            alt="It is loggedin user image"
+            className="size-8 md:size-9 lg:size-11 p-1 border-2 border-accent rounded-full"
+          />
         </div>
       </Container>
     </header>
