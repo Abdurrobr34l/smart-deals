@@ -18,6 +18,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
-// console.log(import.meta.env.VITE_FIREBASE_API_KEY);
-export default auth;
+export const auth = getAuth(app);
