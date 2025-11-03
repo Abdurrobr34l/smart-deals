@@ -1,15 +1,17 @@
 import React, { use } from "react";
 import Container from "../Container/Container";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../Contexts/AuthContext";
 
 const Register = () => {
   const { signInWithGoogle } = use(AuthContext);
+  const navigate = useNavigate()
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
+        navigate("/")
         console.log(result);
       })
       .catch((error) => {

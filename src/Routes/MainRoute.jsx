@@ -7,6 +7,7 @@ import Login from "../Components/Login/Login";
 import CreateProduct from "../Components/CreateProduct/CreateProduct";
 import MyBids from "../Components/MyBids/MyBids";
 import MyProducts from "../Components/MyProducts/MyProducts";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -15,35 +16,47 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        element: <Home/>,
       },
       {
         path: "/all-products",
-        Component: ALLProducts,
+        element: <ALLProducts/>,
       },
 
       //* -------------PRIVATE ROUTES-------------------
       {
         path: "/my-products",
-        Component: MyProducts,
+        element: (
+          <PrivateRoute>
+            <MyProducts />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/my-bids",
-        Component: MyBids,
+        element: (
+          <PrivateRoute>
+            <MyBids />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/create-product",
-        Component: CreateProduct,
+        element: (
+          <PrivateRoute>
+            <CreateProduct />
+          </PrivateRoute>
+        ),
       },
       //* -------------PRIVATE ROUTES-------------------
-      
+
       {
         path: "/register",
-        Component: Register,
+        element: <Register/>,
       },
       {
         path: "/login",
-        Component: Login,
+        element: <Login/>,
       },
     ],
   },
