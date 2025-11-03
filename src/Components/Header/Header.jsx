@@ -2,7 +2,7 @@ import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import Container from "../Container/Container";
 import { AuthContext } from "../../Contexts/AuthContext";
-import profileImage from "../../../public/react.svg";
+// import profileImage from "../../../public/react.svg";
 
 const Header = () => {
   const navigation = [
@@ -111,18 +111,18 @@ const Header = () => {
         {/* LoggedIn User Profile */}
         <div className="navbar-end gap-5">
           <img
-            src={user ? profileImage : user?.photoURL}
+            src={user ? user?.photoURL : "https://img.icons8.com/ios-filled/50/user-male-circle.png"}
             alt="It is loggedin user image"
-            className="size-8 md:size-9 lg:size-11 p-1 border-2 border-accent rounded-full"
+            className="size-8 md:size-9 lg:size-11 border-2 border-accent rounded-full"
           />
 
           <div>
             {
               user
               ? 
-              <Link onClick={handleSignOut} to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">LogOut</Link>
+              <Link onClick={handleSignOut} to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">SignOut</Link>
               : 
-              <Link to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">LogIn</Link>
+              <Link to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">SignIn</Link>
             }
           </div>
         </div>

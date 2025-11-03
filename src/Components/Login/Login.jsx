@@ -11,7 +11,7 @@ const Login = () => {
           <title>Smart Deals | SignIn</title>
 
           <div className="flex flex-col items-center gap-8">
-            <h2 className="text-5xl font-bold">Sign<span className="text-accent">In</span></h2>
+            <h2 className="text-5xl font-black">Sign<span className="text-accent">In</span></h2>
 
             <form>
               <fieldset className="fieldset p-6 w-[335px] bg-white rounded-lg md:w-[500px]">
