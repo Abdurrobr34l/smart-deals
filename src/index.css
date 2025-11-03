@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 @import "tailwindcss";
 @plugin "daisyui" {
@@ -10,7 +10,7 @@
   default: true;
   --color-primary: #001931;
   --color-secondary: #627382;
-  --color-accent: #9F62F2;
+  --color-accent: #9f62f2;
   --color-base-100: #f5f5f5;
 }
 
@@ -22,7 +22,10 @@ body {
   @apply text-accent border-b-2 rounded-none;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   @apply text-primary;
 }
 p {
@@ -31,6 +34,10 @@ p {
 
 .commonSectionPadding {
   @apply pt-10 md:pt-14 lg:pt-20;
+}
+
+.logoHover {
+  @apply transition-colors duration-300 ease-linear;
 }
 
 .link-hover {
@@ -42,5 +49,5 @@ p {
 }
 
 .gradAccentClrHover:hover {
-  @apply bg-linear-to-r from-[#9F62F2] to-[#632EE3];/* hover gradient */
+  @apply bg-linear-to-r from-[#9F62F2] to-[#632EE3]; /* hover gradient */
 }

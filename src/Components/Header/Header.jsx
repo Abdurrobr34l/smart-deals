@@ -82,19 +82,19 @@ const Header = () => {
               className="menu menu-sm dropdown-content gap-5 bg-white rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {navigation.map((item) => (
-                <li key={item.id}>
-                  <NavLink
-                    to={item.path}
-                    className="p-0 font-semibold text-primary transition-colors duration-200 ease-linear hover:bg-transparent hover:text-accent"
-                  >
-                    {item.name}
-                  </NavLink>
-                </li>
-              ))}
+              <li key={item.id}>
+                <NavLink
+                  to={item.path}
+                  className="p-0 font-semibold text-primary transition-colors duration-200 ease-linear hover:bg-transparent hover:text-accent"
+                >
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
             </ul>
           </div>
-          <Link to={"/"} className="text-3xl font-bold">
-            Smart<span className="text-accent">Deals</span>
+          <Link to={"/"} className="logoHover text-3xl font-black group hover:text-accent">
+            Smart<span className="logoHover text-accent group-hover:text-primary">Deals</span>
           </Link>
         </div>
 

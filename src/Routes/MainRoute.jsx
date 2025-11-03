@@ -11,38 +11,42 @@ import MyProducts from "../Components/MyProducts/MyProducts";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout/>,
+    element: <RootLayout />,
     children: [
       {
         index: true,
-        Component: Home
+        Component: Home,
       },
       {
         path: "/all-products",
-        Component: ALLProducts
+        Component: ALLProducts,
       },
-       {
+
+      //* -------------PRIVATE ROUTES-------------------
+      {
         path: "/my-products",
-        Component: MyProducts
-      },
-       {
-        path: "/my-bids",
-        Component: MyBids
-      },
-       {
-        path: "/create-product",
-        Component: CreateProduct
+        Component: MyProducts,
       },
       {
+        path: "/my-bids",
+        Component: MyBids,
+      },
+      {
+        path: "/create-product",
+        Component: CreateProduct,
+      },
+      //* -------------PRIVATE ROUTES-------------------
+      
+      {
         path: "/register",
-        Component: Register
+        Component: Register,
       },
       {
         path: "/login",
-        Component: Login
-      }
-    ]
-  }
-])
+        Component: Login,
+      },
+    ],
+  },
+]);
 
-export default router
+export default router;
