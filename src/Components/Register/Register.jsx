@@ -21,7 +21,7 @@ const Register = () => {
     <section>
       <Container>
         <div className="my-10">
-          <title>Smart Deals | Register</title>
+          <title>Smart Deals | SignUp</title>
 
           <div className="flex flex-col items-center gap-8">
             <h2 className="text-5xl font-black">

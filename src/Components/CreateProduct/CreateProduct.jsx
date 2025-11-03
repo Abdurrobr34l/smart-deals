@@ -1,16 +1,16 @@
 import React from "react";
 import Container from "../Container/Container";
 
-const ALLProducts = () => {
+const CreateProduct = () => {
   return (
     <section>
-      <title>Smart Deals | All Products</title>
+      <title>Smart Deals | Create Product</title>
 
       <Container>
-        ALLProducts
+        CreateProduct
       </Container>
     </section>
   );
 };
 
-export default ALLProducts;
+export default CreateProduct;

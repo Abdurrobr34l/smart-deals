@@ -5,7 +5,12 @@ import { AuthContext } from "../../Contexts/AuthContext";
 // import profileImage from "../../../public/react.svg";
 
 const Header = () => {
-  const navigation = [
+  const guestNavigation = [
+    { id: 1, path: "/", name: "Home" },
+    { id: 2, path: "/all-products", name: "All Products" },
+  ];
+
+  const signedInNavigation = [
     {
       id: 1,
       path: "/",
@@ -36,14 +41,15 @@ const Header = () => {
   const { user, logOut } = use(AuthContext);
   const handleSignOut = () => {
     logOut()
-     .then(() => {
-      console.log("User signed out successfully");
-    })
-    .catch((error) => {
-      console.error("Sign-out error:", error);
-    });
-  }
+      .then(() => {
+        console.log("User signed out successfully");
+      })
+      .catch((error) => {
+        console.error("Sign-out error:", error);
+      });
+  };
 
+  const navigation = user ? signedInNavigation : guestNavigation;
   return (
     <header className="bg-white">
       <Container className="navbar py-6 px-0">
@@ -111,19 +117,32 @@ const Header = () => {
         {/* LoggedIn User Profile */}
         <div className="navbar-end gap-5">
           <img
-            src={user ? user?.photoURL : "https://img.icons8.com/ios-filled/50/user-male-circle.png"}
+            src={
+              user
+                ? user?.photoURL
+                : "https://img.icons8.com/ios-filled/50/user-male-circle.png"
+            }
             alt="It is loggedin user image"
             className="size-8 md:size-9 lg:size-11 border-2 border-accent rounded-full"
           />
 
           <div>
-            {
-              user
-              ? 
-              <Link onClick={handleSignOut} to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">SignOut</Link>
-              : 
-              <Link to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">SignIn</Link>
-            }
+            {user ? (
+              <Link
+                onClick={handleSignOut}
+                to={"/login"}
+                className="btn text-white gradAccentClr gradAccentClrHover"
+              >
+                SignOut
+              </Link>
+            ) : (
+              <Link
+                to={"/login"}
+                className="btn text-white gradAccentClr gradAccentClrHover"
+              >
+                SignIn
+              </Link>
+            )}
           </div>
         </div>
       </Container>
