@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from '../Container/Container';
 import { Link } from 'react-router';
+import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
   return (
@@ -90,13 +91,13 @@ const Login = () => {
                 </button>
 
                 {/* SignUp With Google Button */}
-                {/* <button
+                <button
                   type="submit"
                   className="btn mt-4 py-6 bg-white text-[#122B45] border-[#e5e5e5] w-full transition-colors duration-200 ease-linear hover:bg-primary hover:text-accent"
                 >
                   <FaGoogle></FaGoogle>
-                  SignUp With Google
-                </button> */}
+                  SignIn With Google
+                </button>
 
                 <div className="mt-3 text-center">
                   <p className="textarea-md">

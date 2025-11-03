@@ -8,7 +8,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../Firebase/Firebase.init";
-import { GoogleAuthProvider } from "firebase/auth/web-extension";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();

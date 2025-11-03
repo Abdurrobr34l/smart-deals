@@ -1,6 +1,8 @@
-import React from "react";
+import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import Container from "../Container/Container";
+import { AuthContext } from "../../Contexts/AuthContext";
+import profileImage from "../../../public/react.svg";
 
 const Header = () => {
   const navigation = [
@@ -30,6 +32,17 @@ const Header = () => {
       name: "Create Product",
     },
   ];
+
+  const { user, logOut } = use(AuthContext);
+  const handleSignOut = () => {
+    logOut()
+     .then(() => {
+      console.log("User signed out successfully");
+    })
+    .catch((error) => {
+      console.error("Sign-out error:", error);
+    });
+  }
 
   return (
     <header className="bg-white">
@@ -96,12 +109,22 @@ const Header = () => {
         </div>
 
         {/* LoggedIn User Profile */}
-        <div className="navbar-end">
+        <div className="navbar-end gap-5">
           <img
-            src="../../../public/react.svg"
+            src={user ? profileImage : user?.photoURL}
             alt="It is loggedin user image"
             className="size-8 md:size-9 lg:size-11 p-1 border-2 border-accent rounded-full"
           />
+
+          <div>
+            {
+              user
+              ? 
+              <Link onClick={handleSignOut} to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">LogOut</Link>
+              : 
+              <Link to={"/login"} className="btn text-white gradAccentClr gradAccentClrHover">LogIn</Link>
+            }
+          </div>
         </div>
       </Container>
     </header>
