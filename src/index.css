@@ -29,6 +29,10 @@ p {
   @apply text-secondary;
 }
 
+.commonSectionPadding {
+  @apply pt-10 md:pt-14 lg:pt-20;
+}
+
 .link-hover {
   @apply font-semibold transition-colors duration-200 ease-linear hover:text-accent;
 }
