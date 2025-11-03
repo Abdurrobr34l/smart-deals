@@ -16,13 +16,15 @@ const Home = () => {
     <main className="commonSectionPadding pt-0!">
       <title>Smart Deals | Home</title>
 
+      {/*//* HERO */}
       <HeroSection></HeroSection>
 
       <Container>
         <div>
-        <LatestProductSection
-          latestProducts={latestProducts}
-        ></LatestProductSection>
+          {/*//* LATEST PRODUCTS */}
+          <LatestProductSection
+            latestProducts={latestProducts}
+          ></LatestProductSection>
         </div>
       </Container>
     </main>
