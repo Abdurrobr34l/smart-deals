@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Container from '../Container/Container';
-import LatestProductSection from './LatestProductSection';
+import React, { useEffect, useState } from "react";
+import Container from "../Container/Container";
+import LatestProductSection from "./LatestProductSection";
+import HeroSection from "./HeroSection";
 
 const Home = () => {
-  // const latestProducts = fetch("http://localhost:3000/latest-products").then(res => res.json());
-    const [latestProducts, setLatestProducts] = useState([]);
-
+  const [latestProducts, setLatestProducts] = useState([]);
   useEffect(() => {
     fetch("http://localhost:3000/latest-products")
       .then((res) => res.json())
@@ -14,13 +13,17 @@ const Home = () => {
   }, []);
 
   return (
-    <main className='commonSectionPadding pt-0!'>
+    <main className="commonSectionPadding pt-0!">
       <title>Smart Deals | Home</title>
 
+      <HeroSection></HeroSection>
+
       <Container>
-       <div>
-        <LatestProductSection latestProducts={latestProducts}></LatestProductSection>
-       </div>
+        <div>
+        <LatestProductSection
+          latestProducts={latestProducts}
+        ></LatestProductSection>
+        </div>
       </Container>
     </main>
   );

@@ -8,6 +8,7 @@ import CreateProduct from "../Components/CreateProduct/CreateProduct";
 import MyBids from "../Components/MyBids/MyBids";
 import MyProducts from "../Components/MyProducts/MyProducts";
 import PrivateRoute from "./PrivateRoute";
+import ProductDetails from "../Components/Home/ProductDetails";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,14 @@ const router = createBrowserRouter([
       },
 
       //* -------------PRIVATE ROUTES-------------------
+       {
+        path: "/product-details/:id",
+        element: (
+          <PrivateRoute>
+            <ProductDetails />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/my-products",
         element: (

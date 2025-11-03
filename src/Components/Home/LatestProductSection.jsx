@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const LatestProductSection = ({ latestProducts }) => {
   return (
-    <div>
+    <section className="commonSectionPadding">
       <h2 className="title">
         Recent <span className="text-accent">Products</span>
       </h2>
@@ -45,7 +45,7 @@ const LatestProductSection = ({ latestProducts }) => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
