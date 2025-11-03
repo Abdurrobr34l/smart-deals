@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const LatestProductSection = ({ latestProducts }) => {
   return (
-    <section className="commonSectionPadding">
+    <section className="commonSectionPadding flex flex-col items-center">
       <h2 className="title">
         Recent <span className="text-accent">Products</span>
       </h2>
@@ -45,6 +45,8 @@ const LatestProductSection = ({ latestProducts }) => {
           </div>
         )}
       </div>
+
+      <Link to={"/all-products"} className="gradAccentClr gradAccentClrHover inline-block mt-5 text-center place-content-center font-semibold text-white w-[145px] h-12 rounded-lg hover:text-primary md:mt-10">Show All</Link>
     </section>
   );
 };

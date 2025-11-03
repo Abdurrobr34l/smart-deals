@@ -18,7 +18,7 @@ const HeroSection = () => {
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-4 text-secondary max-w-xl mx-auto text-sm md:text-base">
+        <p className="mt-4 text-secondary max-w-2xl mx-auto text-sm md:text-base">
           SmartDeals helps you sell, resell, and shop from trusted local sellers
           — all in one place!
         </p>
