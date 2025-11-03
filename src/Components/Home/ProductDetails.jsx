@@ -1,12 +1,14 @@
-import React, { useRef, useState } from "react"; // <-- FIXED: Added useState
+import React, { useContext, useRef, useState } from "react"; // <-- FIXED: Added useState
 import { Link, useLoaderData } from "react-router";
 import Container from "../Container/Container"; // Assuming this handles max-width and center
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const ProductDetails = () => {
   const product = useLoaderData();
   const bidModalRef = useRef(null);
+  const {user} = useContext(AuthContext)
   
   // 1. MISSING STATE DEFINITION - Added to manage form inputs
   const [formData, setFormData] = useState({
@@ -40,7 +42,12 @@ const ProductDetails = () => {
   // 5. MISSING HANDLER DEFINITION - Function to handle submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Logic to handle bid submission (e.g., API call) goes here
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const price = e.target.price.value;
+    console.log(_id, name, email, price);
+
+
     console.log('Bid Submitted:', formData);
     // Clear form and close modal
     setFormData({
@@ -281,24 +288,26 @@ const ProductDetails = () => {
                                 <label className="label text-primary text-sm font-semibold p-0 mb-1">Buyer Name</label>
                                 <input
                                     type="text"
-                                    name="buyerName"
+                                    name="name"
                                     placeholder="Your name"
-                                    value={formData.buyerName}
+                                    value={user?.displayName || formData.buyerName}
                                     onChange={handleChange}
                                     className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
                                     required
+                                    readOnly 
                                 />
                             </div>
                             <div>
                                 <label className="label text-primary text-sm font-semibold p-0 mb-1">Buyer Email</label>
                                 <input
                                     type="email"
-                                    name="buyerEmail"
+                                    name="email"
                                     placeholder="Your Email"
-                                    value={formData.buyerEmail}
+                                    value={user?.email || formData.buyerEmail}
                                     onChange={handleChange}
                                     className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
                                     required
+                                    readOnly 
                                 />
                             </div>
                         </div>
@@ -310,8 +319,9 @@ const ProductDetails = () => {
                                 type="url"
                                 name="buyerImage"
                                 placeholder="https://...your_img_url"
-                                value={formData.buyerImage}
+                                value={user?.photoURL || formData.buyerImage}
                                 onChange={handleChange}
+                                readOnly
                                 className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
                             />
                         </div>
@@ -338,10 +348,11 @@ const ProductDetails = () => {
                                 type="tel"
                                 name="contactInfo"
                                 placeholder="e.g. +1-555-1234"
-                                value={formData.contactInfo}
+                                value={seller_contact}
                                 onChange={handleChange}
                                 className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
                                 required
+                                readOnly
                             />
                         </div>
                     
