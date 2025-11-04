@@ -8,15 +8,15 @@ import { AuthContext } from "../../Contexts/AuthContext";
 const ProductDetails = () => {
   const product = useLoaderData();
   const bidModalRef = useRef(null);
-  const {user} = useContext(AuthContext)
-  
+  const { user } = useContext(AuthContext);
+
   // 1. MISSING STATE DEFINITION - Added to manage form inputs
   const [formData, setFormData] = useState({
-    buyerName: '',
-    buyerEmail: '',
-    buyerImage: '',
-    price: '',
-    contactInfo: '',
+    buyerName: "",
+    buyerEmail: "",
+    buyerImage: "",
+    price: "",
+    contactInfo: "",
   });
 
   // 2. MISSING HANDLER DEFINITION - Function to open modal via ref
@@ -25,11 +25,11 @@ const ProductDetails = () => {
       bidModalRef.current.showModal();
     }
   };
-  
+
   // 3. MISSING HANDLER DEFINITION - Function to update form state
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   // 4. MISSING HANDLER DEFINITION - Function to close modal
@@ -45,17 +45,34 @@ const ProductDetails = () => {
     const name = e.target.name.value;
     const email = e.target.email.value;
     const price = e.target.price.value;
-    console.log(_id, name, email, price);
 
+    const newBid = {
+      product: _id,
+      buyer_name: name,
+      buyer_email: email,
+      bid_price: price,
+      status: "pending",
+    };
 
-    console.log('Bid Submitted:', formData);
+    fetch(`http://localhost:3000/product-details/${_id}`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newBid),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+
     // Clear form and close modal
     setFormData({
-      buyerName: '',
-      buyerEmail: '',
-      buyerImage: '',
-      price: '',
-      contactInfo: '',
+      name: "",
+      email: "",
+      buyerImage: "",
+      price: "",
+      contactInfo: "",
     });
     handleClose();
   };
@@ -128,8 +145,9 @@ const ProductDetails = () => {
                   alt={title}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "https://placehold.co/472x276/e0e0e0/555555?text=Image+Load+Error";
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://placehold.co/472x276/e0e0e0/555555?text=Image+Load+Error";
                   }}
                 />
               </div>
@@ -203,8 +221,9 @@ const ProductDetails = () => {
                           alt={seller_name}
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                              e.target.onerror = null;
-                              e.target.src = "https://placehold.co/48x48/e0e0e0/555555?text=Error";
+                            e.target.onerror = null;
+                            e.target.src =
+                              "https://placehold.co/48x48/e0e0e0/555555?text=Error";
                           }}
                         />
                       ) : (
@@ -248,9 +267,10 @@ const ProductDetails = () => {
               </div>
 
               {/* Action Button - Full width, using your custom gradient classes */}
-              <button 
+              <button
                 onClick={handleOpenModal}
-                className="btn btn-block text-white font-bold h-12 gradAccentClrHover gradAccentClr border-0 mt-6">
+                className="btn btn-block text-white font-bold h-12 gradAccentClrHover gradAccentClr border-0 mt-6"
+              >
                 I Want Buy This Product
               </button>
 
@@ -260,124 +280,145 @@ const ProductDetails = () => {
                 className="modal modal-bottom sm:modal-middle"
               >
                 <div className="modal-box p-6 md:p-10 bg-white rounded-xl shadow-2xl w-full max-w-lg">
-                    
-                    {/* Close Button (Top right X) */}
-                    <div className="modal-action absolute top-4 right-4 m-0 p-0">
-                        <form method="dialog">
-                            {/* If there is a button in form, it will close the modal */}
-                            <button 
-                              className="btn btn-sm btn-circle btn-ghost text-primary text-xl hover:text-accent"
-                              onClick={handleClose}
-                            >
-                              {/* Using a generic close icon as MdOutlineClose was not imported here */}
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                        </form>
+                  {/* Close Button (Top right X) */}
+                  <div className="modal-action absolute top-4 right-4 m-0 p-0">
+                    <form method="dialog">
+                      {/* If there is a button in form, it will close the modal */}
+                      <button
+                        className="btn btn-sm btn-circle btn-ghost text-primary text-xl hover:text-accent"
+                        onClick={handleClose}
+                      >
+                        {/* Using a generic close icon as MdOutlineClose was not imported here */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-6 w-6"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M6 18L18 6M6 6l12 12"
+                          />
+                        </svg>
+                      </button>
+                    </form>
+                  </div>
+
+                  {/* Modal Title */}
+                  <h2 className="text-xl md:text-2xl font-black text-primary text-center mb-8 pt-4">
+                    Give Seller Your Offered Price
+                  </h2>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Buyer Name and Buyer Email (Side-by-side on desktop, stacked on mobile) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="label text-primary text-sm font-semibold p-0 mb-1">
+                          Buyer Name
+                        </label>
+                        <input
+                          type="text"
+                          name="name"
+                          placeholder="Your name"
+                          value={user?.displayName || formData.buyerName}
+                          onChange={handleChange}
+                          className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
+                          required
+                          readOnly
+                        />
+                      </div>
+                      <div>
+                        <label className="label text-primary text-sm font-semibold p-0 mb-1">
+                          Buyer Email
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          placeholder="Your Email"
+                          value={user?.email || formData.buyerEmail}
+                          onChange={handleChange}
+                          className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
+                          required
+                          readOnly
+                        />
+                      </div>
                     </div>
 
-                    {/* Modal Title */}
-                    <h2 className="text-xl md:text-2xl font-black text-primary text-center mb-8 pt-4">
-                        Give Seller Your Offered Price
-                    </h2>
+                    {/* Buyer Image URL (Full width) */}
+                    <div>
+                      <label className="label text-primary text-sm font-semibold p-0 mb-1">
+                        Buyer Image URL
+                      </label>
+                      <input
+                        type="url"
+                        name="buyerImage"
+                        placeholder="https://...your_img_url"
+                        value={user?.photoURL || formData.buyerImage}
+                        onChange={handleChange}
+                        readOnly
+                        className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
+                      />
+                    </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        
-                        {/* Buyer Name and Buyer Email (Side-by-side on desktop, stacked on mobile) */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label className="label text-primary text-sm font-semibold p-0 mb-1">Buyer Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder="Your name"
-                                    value={user?.displayName || formData.buyerName}
-                                    onChange={handleChange}
-                                    className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
-                                    required
-                                    readOnly 
-                                />
-                            </div>
-                            <div>
-                                <label className="label text-primary text-sm font-semibold p-0 mb-1">Buyer Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder="Your Email"
-                                    value={user?.email || formData.buyerEmail}
-                                    onChange={handleChange}
-                                    className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
-                                    required
-                                    readOnly 
-                                />
-                            </div>
-                        </div>
+                    {/* Place your Price (Full width) */}
+                    <div>
+                      <label className="label text-primary text-sm font-semibold p-0 mb-1">
+                        Place your Price
+                      </label>
+                      <input
+                        type="number"
+                        name="price"
+                        step="0.01"
+                        placeholder="e.g. $25.00"
+                        value={formData.price}
+                        onChange={handleChange}
+                        className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
+                        required
+                      />
+                    </div>
 
-                        {/* Buyer Image URL (Full width) */}
-                        <div>
-                            <label className="label text-primary text-sm font-semibold p-0 mb-1">Buyer Image URL</label>
-                            <input
-                                type="url"
-                                name="buyerImage"
-                                placeholder="https://...your_img_url"
-                                value={user?.photoURL || formData.buyerImage}
-                                onChange={handleChange}
-                                readOnly
-                                className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
-                            />
-                        </div>
+                    {/* Contact Info (Full width) */}
+                    <div>
+                      <label className="label text-primary text-sm font-semibold p-0 mb-1">
+                        Contact Info
+                      </label>
+                      <input
+                        type="tel"
+                        name="contactInfo"
+                        placeholder="e.g. +1-555-1234"
+                        value={seller_contact}
+                        onChange={handleChange}
+                        className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
+                        required
+                        readOnly
+                      />
+                    </div>
 
-                        {/* Place your Price (Full width) */}
-                        <div>
-                            <label className="label text-primary text-sm font-semibold p-0 mb-1">Place your Price</label>
-                            <input
-                                type="number"
-                                name="price"
-                                step="0.01"
-                                placeholder="e.g. $25.00"
-                                value={formData.price}
-                                onChange={handleChange}
-                                className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
-                                required
-                            />
-                        </div>
+                    {/* Action Buttons (Right aligned) */}
+                    <div className="pt-6 flex justify-end space-x-3">
+                      {/* Cancel Button */}
+                      <button
+                        type="button"
+                        className="btn btn-outline text-secondary border-secondary/50 hover:bg-gray-100 hover:border-secondary transition-colors"
+                        onClick={handleClose}
+                      >
+                        Cancel
+                      </button>
 
-                        {/* Contact Info (Full width) */}
-                        <div>
-                            <label className="label text-primary text-sm font-semibold p-0 mb-1">Contact Info</label>
-                            <input
-                                type="tel"
-                                name="contactInfo"
-                                placeholder="e.g. +1-555-1234"
-                                value={seller_contact}
-                                onChange={handleChange}
-                                className="input input-bordered w-full bg-base-100 rounded-lg text-secondary h-12"
-                                required
-                                readOnly
-                            />
-                        </div>
-                    
-                        {/* Action Buttons (Right aligned) */}
-                        <div className="pt-6 flex justify-end space-x-3">
-                            {/* Cancel Button */}
-                            <button
-                                type="button"
-                                className="btn btn-outline text-secondary border-secondary/50 hover:bg-gray-100 hover:border-secondary transition-colors"
-                                onClick={handleClose}
-                            >
-                                Cancel
-                            </button>
-                            
-                            {/* Submit Bid Button using custom gradient classes */}
-                            <button
-                                type="submit"
-                                className="btn text-white font-semibold gradAccentClr gradAccentClrHover border-0"
-                            >
-                                Submit Bid
-                            </button>
-                        </div>
-                    </form>
+                      {/* Submit Bid Button using custom gradient classes */}
+                      <button
+                        type="submit"
+                        className="btn text-white font-semibold gradAccentClr gradAccentClrHover border-0"
+                      >
+                        Submit Bid
+                      </button>
+                    </div>
+                  </form>
                 </div>
-              </dialog> 
+              </dialog>
             </div>
           </div>
         </div>

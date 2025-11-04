@@ -40,7 +40,7 @@ const LatestProductSection = ({ latestProducts }) => {
             )
           )
         ) : (
-          <div className="flex items-center justify-center h-[400px] col-span-12 bg-white rounded-xl">
+          <div className="flex items-center justify-center h-[400px] col-span-12">
             <h2 className="font-bold text-3xl">No products to show</h2>
           </div>
         )}
