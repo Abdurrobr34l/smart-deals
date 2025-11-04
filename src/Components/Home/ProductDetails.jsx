@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react"; // <-- FIXED: Added useState
+import React, { useContext, useEffect, useRef, useState } from "react"; // <-- FIXED: Added useState
 import { Link, useLoaderData } from "react-router";
 import Container from "../Container/Container"; // Assuming this handles max-width and center
 import { FaUserCircle } from "react-icons/fa";
@@ -11,6 +11,7 @@ const ProductDetails = () => {
   const product = useLoaderData();
   const bidModalRef = useRef(null);
   const { user } = useContext(AuthContext);
+  const [bidsData, setBidsData] = useState([]);
 
   // 1. MISSING STATE DEFINITION - Added to manage form inputs
   const [formData, setFormData] = useState({
@@ -121,32 +122,15 @@ const ProductDetails = () => {
 
   const displayProductId = _id || "68f753ae2174c4368ec882f4";
 
-  const bidsData = [
-    {
-      slNo: 1,
-      productName: "Orange Juice",
-      productPrice: "22.5",
-      sellerName: "Sara Chen",
-      sellerEmail: "sara@ishop.net",
-      bidPrice: "$10",
-    },
-    {
-      slNo: 2,
-      productName: "Orange Juice",
-      productPrice: "22.5",
-      sellerName: "Sara Chen",
-      sellerEmail: "sara@ishop.net",
-      bidPrice: "$10",
-    },
-    {
-      slNo: 3,
-      productName: "Orange Juice",
-      productPrice: "22.5",
-      sellerName: "Sara Chen",
-      sellerEmail: "sara@ishop.net",
-      bidPrice: "$10",
-    },
-  ];
+  //* Showing Bids data for the product
+  useEffect(() => {
+    if (_id) {
+      fetch(`http://localhost:3000/products/bids/${_id}`)
+        .then((res) => res.json())
+        .then((data) => setBidsData(data))
+        .catch((err) => console.error("Error fetching bids:", err));
+    }
+  }, [_id]);
 
   return (
     <section className="commonSectionPadding">
@@ -510,7 +494,6 @@ const ProductDetails = () => {
                     {/* Product */}
                     <td>
                       <div className="flex items-center space-x-3">
-                        {/* Placeholder for Product Image/Icon */}
                         <div className="avatar">
                           <div className="mask mask-squircle w-12 h-12 bg-base-200 flex items-center justify-center">
                             <MdOutlineFastfood className="text-3xl text-gray-500" />
@@ -518,30 +501,28 @@ const ProductDetails = () => {
                         </div>
                         <div>
                           <div className="font-semibold text-primary">
-                            {bid.productName}
+                            {title}{" "}
+                            {/* Product title from your useLoaderData or props */}
                           </div>
-                          <div className="text-sm opacity-50">
-                            ${bid.productPrice}
-                          </div>
+                          <div className="text-sm opacity-50">${bid.bid_price}</div>
                         </div>
                       </div>
                     </td>
 
-                    {/* Seller */}
+                    {/* Buyer */}
                     <td>
                       <div className="flex items-center space-x-3">
-                        {/* Placeholder for Seller Avatar */}
                         <div className="avatar">
-                          <div className="w-10 h-10 rounded-full bg-base-200">
-                            {/*  */}
+                          <div className="w-10 h-10 rounded-full bg-base-200 flex items-center justify-center">
+                            <FaUserCircle className="text-gray-500 text-xl" />
                           </div>
                         </div>
                         <div>
                           <div className="font-semibold text-primary">
-                            {bid.sellerName}
+                            {bid.buyer_name}
                           </div>
                           <div className="text-sm opacity-50 truncate max-w-[150px]">
-                            {bid.sellerEmail}
+                            {bid.buyer_email}
                           </div>
                         </div>
                       </div>
@@ -549,7 +530,7 @@ const ProductDetails = () => {
 
                     {/* Bid Price */}
                     <td className="font-bold text-lg text-primary">
-                      {bid.bidPrice}
+                      ${bid.bid_price}
                     </td>
 
                     {/* Actions */}
