@@ -4,6 +4,8 @@ import Container from "../Container/Container"; // Assuming this handles max-wid
 import { FaUserCircle } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { MdOutlineFastfood } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const ProductDetails = () => {
   const product = useLoaderData();
@@ -36,6 +38,13 @@ const ProductDetails = () => {
   const handleClose = () => {
     if (bidModalRef.current) {
       bidModalRef.current.close();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your bid has been placed",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 
@@ -112,11 +121,38 @@ const ProductDetails = () => {
 
   const displayProductId = _id || "68f753ae2174c4368ec882f4";
 
+  const bidsData = [
+    {
+      slNo: 1,
+      productName: "Orange Juice",
+      productPrice: "22.5",
+      sellerName: "Sara Chen",
+      sellerEmail: "sara@ishop.net",
+      bidPrice: "$10",
+    },
+    {
+      slNo: 2,
+      productName: "Orange Juice",
+      productPrice: "22.5",
+      sellerName: "Sara Chen",
+      sellerEmail: "sara@ishop.net",
+      bidPrice: "$10",
+    },
+    {
+      slNo: 3,
+      productName: "Orange Juice",
+      productPrice: "22.5",
+      sellerName: "Sara Chen",
+      sellerEmail: "sara@ishop.net",
+      bidPrice: "$10",
+    },
+  ];
+
   return (
     <section className="commonSectionPadding">
       <title>Smart Deals | Product Details</title>
 
-      <Container>
+      <Container className="flex flex-col gap-5 md:gap-10 lg:gap-14 xl:gap-20">
         {/* Main Content Card - Adjusted max-w and p to match the image structure */}
         <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-lg p-6 lg:p-10">
           {/* Back Button */}
@@ -420,6 +456,123 @@ const ProductDetails = () => {
                 </div>
               </dialog>
             </div>
+          </div>
+        </div>
+
+        {/* Bids Data */}
+        <div className="p-4 md:p-8 lg:p-10">
+          {/* Header Section */}
+          <div className="mb-6 md:mb-8 flex items-end">
+            <h2 className="text-2xl md:text-3xl font-bold text-primary mr-2">
+              Bids For This Products:
+            </h2>
+            <span className="text-4xl md:text-5xl font-extrabold text-[#9F62F2] leading-none">
+              {bidsData.length.toString().padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* Table Container - Uses DaisyUI `table` class */}
+          <div className="overflow-x-auto shadow-lg rounded-lg bg-white">
+            <table className="table w-full">
+              {/* Table Head */}
+              <thead>
+                <tr className="border-b-2 border-base-200">
+                  <th className="w-12 text-center text-secondary font-semibold">
+                    SL No
+                  </th>
+                  <th className="text-left text-secondary font-semibold">
+                    Product
+                  </th>
+                  <th className="text-left text-secondary font-semibold">
+                    Seller
+                  </th>
+                  <th className="text-left text-secondary font-semibold">
+                    Bid Price
+                  </th>
+                  <th className="text-center text-secondary font-semibold">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+
+              {/* Table Body */}
+              <tbody>
+                {bidsData.map((bid) => (
+                  <tr
+                    key={bid.slNo}
+                    className="hover:bg-base-100 transition-colors duration-200 border-b border-base-200 last:border-b-0"
+                  >
+                    {/* SL No */}
+                    <td className="text-center font-medium text-secondary">
+                      {bid.slNo}
+                    </td>
+
+                    {/* Product */}
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        {/* Placeholder for Product Image/Icon */}
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12 bg-base-200 flex items-center justify-center">
+                            <MdOutlineFastfood className="text-3xl text-gray-500" />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-semibold text-primary">
+                            {bid.productName}
+                          </div>
+                          <div className="text-sm opacity-50">
+                            ${bid.productPrice}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Seller */}
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        {/* Placeholder for Seller Avatar */}
+                        <div className="avatar">
+                          <div className="w-10 h-10 rounded-full bg-base-200">
+                            {/*  */}
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-semibold text-primary">
+                            {bid.sellerName}
+                          </div>
+                          <div className="text-sm opacity-50 truncate max-w-[150px]">
+                            {bid.sellerEmail}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* Bid Price */}
+                    <td className="font-bold text-lg text-primary">
+                      {bid.bidPrice}
+                    </td>
+
+                    {/* Actions */}
+                    <td>
+                      <div className="flex justify-center space-x-2">
+                        <button
+                          className="btn btn-sm btn-success text-white px-3"
+                          onClick={() => console.log("Accept Offer:", bid.slNo)}
+                        >
+                          Accept Offer
+                        </button>
+                        <button
+                          className="btn btn-sm btn-outline btn-error px-3"
+                          onClick={() => console.log("Reject Offer:", bid.slNo)}
+                        >
+                          Reject Offer
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </Container>
