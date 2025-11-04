@@ -74,6 +74,7 @@ const ProductDetails = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setBidsData((prev) => [...prev, newBid]);
       });
 
     // Clear form and close modal
@@ -481,14 +482,14 @@ const ProductDetails = () => {
 
               {/* Table Body */}
               <tbody>
-                {bidsData.map((bid) => (
+                {bidsData.map((bid, index) => (
                   <tr
-                    key={bid.slNo}
+                    key={_id}
                     className="hover:bg-base-100 transition-colors duration-200 border-b border-base-200 last:border-b-0"
                   >
                     {/* SL No */}
                     <td className="text-center font-medium text-secondary">
-                      {bid.slNo}
+                      {index + 1}
                     </td>
 
                     {/* Product */}
