@@ -1,9 +1,20 @@
-import React from 'react';
-import Container from '../Container/Container';
-import { Link } from 'react-router';
-import { FaGoogle } from 'react-icons/fa';
+import React, { useContext } from "react";
+import Container from "../Container/Container";
+import { Link } from "react-router";
+import { FaGoogle } from "react-icons/fa";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const Login = () => {
+  const { signInWithGoogle } = useContext(AuthContext);
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <section>
       <Container>
@@ -11,7 +22,9 @@ const Login = () => {
           <title>Smart Deals | SignIn</title>
 
           <div className="flex flex-col items-center gap-8">
-            <h2 className="text-5xl font-black">Sign<span className="text-accent">In</span></h2>
+            <h2 className="text-5xl font-black">
+              Sign<span className="text-accent">In</span>
+            </h2>
 
             <form>
               <fieldset className="fieldset p-6 w-[335px] bg-white rounded-lg md:w-[500px]">
@@ -92,6 +105,7 @@ const Login = () => {
 
                 {/* SignUp With Google Button */}
                 <button
+                  onClick={handleGoogleSignIn}
                   type="submit"
                   className="btn mt-4 py-6 bg-white text-[#122B45] border-[#e5e5e5] w-full transition-colors duration-200 ease-linear hover:bg-primary hover:text-accent"
                 >
@@ -112,7 +126,6 @@ const Login = () => {
                 </div>
               </fieldset>
             </form>
-
           </div>
         </div>
       </Container>
