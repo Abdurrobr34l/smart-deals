@@ -3,7 +3,7 @@ import Container from "../Container/Container";
 
 const MyBids = () => {
   return (
-    <section>
+    <section className="commonSectionPadding">
       <title>Smart Deals | My Bids</title>
 
       <Container>MyBids</Container>
