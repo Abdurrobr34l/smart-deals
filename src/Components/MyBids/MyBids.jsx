@@ -7,10 +7,15 @@ import { FaUserCircle } from "react-icons/fa";
 const MyBids = () => {
   const { user } = useContext(AuthContext); // get logged-in user info
   const [myBids, setMyBids] = useState([]);
+  // console.log(user.accessToken);
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/bids?email=${user.email}`)
+      fetch(`http://localhost:3000/bids?email=${user.email}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => setMyBids(data))
         .catch((err) => console.error("Fetch error:", err));
