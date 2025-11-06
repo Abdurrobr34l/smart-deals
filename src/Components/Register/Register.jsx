@@ -101,7 +101,7 @@ const Register = () => {
 
                 {/* SignUp Button */}
                 <button
-                  type="submit"
+                  type="button"
                   className="btn btn-neutral gradAccentClr gradAccentClrHover mt-4 py-6 w-full"
                 >
                   Register
@@ -110,7 +110,7 @@ const Register = () => {
                 {/* SignUp With Google Button */}
                 <button
                   onClick={handleGoogleSignIn}
-                  type="submit"
+                  type="button"
                   className="btn mt-4 py-6 bg-white text-[#122B45] border-[#e5e5e5] w-full transition-colors duration-200 ease-linear hover:bg-primary hover:text-accent"
                 >
                   <FaGoogle></FaGoogle>

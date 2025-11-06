@@ -3,6 +3,8 @@ import Container from "../Container/Container";
 import { Link } from "react-router";
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase/Firebase.init";
 
 const Login = () => {
   const { signInWithGoogle } = useContext(AuthContext);
@@ -15,9 +17,34 @@ const Login = () => {
         console.log(error);
       });
   };
+
+  const handleEmailLogin = () => {
+    const email = "user@gmail.com";
+    const password = "123456@Aa";
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("Logged in user:", user);
+        alert(`Logged in as: ${user.email}`);
+      })
+      .catch((error) => {
+        console.error("Login error:", error.message);
+        alert(`Login failed: ${error.message}`);
+      });
+  };
+
   return (
     <section>
       <Container>
+        <button
+          onClick={handleEmailLogin}
+          className="btn mt-4 py-6 bg-blue-500 text-white w-full"
+        >
+          Login with Hardcoded Email
+        </button>
+
         <div className="my-10">
           <title>Smart Deals | SignIn</title>
 
@@ -97,7 +124,7 @@ const Login = () => {
 
                 {/* SignUp Button */}
                 <button
-                  type="submit"
+                  type="button"
                   className="btn btn-neutral gradAccentClr gradAccentClrHover mt-4 py-6 w-full"
                 >
                   SignIn
@@ -106,7 +133,7 @@ const Login = () => {
                 {/* SignUp With Google Button */}
                 <button
                   onClick={handleGoogleSignIn}
-                  type="submit"
+                  type="button"
                   className="btn mt-4 py-6 bg-white text-[#122B45] border-[#e5e5e5] w-full transition-colors duration-200 ease-linear hover:bg-primary hover:text-accent"
                 >
                   <FaGoogle></FaGoogle>
