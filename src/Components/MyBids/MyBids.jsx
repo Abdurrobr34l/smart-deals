@@ -11,7 +11,9 @@ const MyBids = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/bids?email=${user.email}`, {
+      fetch(`http://localhost:3000/bids?email=${user.email}`,
+        //* Sending Firebase User Token to Backend
+        {
         headers: {
           authorization: `Bearer ${user.accessToken}`,
         },
