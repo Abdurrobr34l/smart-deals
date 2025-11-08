@@ -2,14 +2,22 @@ import React, { useEffect, useState } from "react";
 import Container from "../Container/Container";
 import LatestProductSection from "./LatestProductSection";
 import HeroSection from "./HeroSection";
+import axios from "axios";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:3000/latest-products")
-      .then((res) => res.json())
-      .then((data) => setLatestProducts(data))
-      .catch((err) => console.error("Error fetching products:", err));
+    axios.get(`http://localhost:3000/latest-products`)
+    .then(data => {
+      console.log(data.data);
+      setLatestProducts(data.data)
+    })
+
+    // fetch("http://localhost:3000/latest-products")
+    //   .then((res) => res.json())
+    //   .then((data) => setLatestProducts(data))
+    //   .catch((err) => console.error("Error fetching products:", err));
   }, []);
 
   return (
