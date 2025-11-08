@@ -2,7 +2,6 @@ import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import Container from "../Container/Container";
 import { AuthContext } from "../../Contexts/AuthContext";
-// import profileImage from "../../../public/react.svg";
 
 const Header = () => {
   const guestNavigation = [
@@ -39,6 +38,7 @@ const Header = () => {
   ];
 
   const { user, logOut } = use(AuthContext);
+
   const handleSignOut = () => {
     logOut()
       .then(() => {
@@ -50,6 +50,7 @@ const Header = () => {
   };
 
   const navigation = user ? signedInNavigation : guestNavigation;
+  
   return (
     <header className="bg-white">
       <Container className="navbar py-6 px-0">
@@ -82,19 +83,25 @@ const Header = () => {
               className="menu menu-sm dropdown-content gap-5 bg-white rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {navigation.map((item) => (
-              <li key={item.id}>
-                <NavLink
-                  to={item.path}
-                  className="p-0 font-semibold text-primary transition-colors duration-200 ease-linear hover:bg-transparent hover:text-accent"
-                >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
+                <li key={item.id}>
+                  <NavLink
+                    to={item.path}
+                    className="p-0 font-semibold text-primary transition-colors duration-200 ease-linear hover:bg-transparent hover:text-accent"
+                  >
+                    {item.name}
+                  </NavLink>
+                </li>
+              ))}
             </ul>
           </div>
-          <Link to={"/"} className="logoHover text-3xl font-black group hover:text-accent">
-            Smart<span className="logoHover text-accent group-hover:text-primary">Deals</span>
+          <Link
+            to={"/"}
+            className="logoHover text-3xl font-black group hover:text-accent"
+          >
+            Smart
+            <span className="logoHover text-accent group-hover:text-primary">
+              Deals
+            </span>
           </Link>
         </div>
 
